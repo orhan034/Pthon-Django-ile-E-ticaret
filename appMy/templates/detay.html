@@ -1,0 +1,144 @@
+{% extends 'base.html' %}
+{% load static %}
+
+
+{% block body %}
+<section style="background-color: #eee;">
+    <div class="container-fluid py-5">
+        <div class="row justify-content-center mb-3">
+            <div class="col-md-12 col-xl-10">
+                <div class="card shadow-0 border rounded-3">
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-12 col-lg-6 col-xl-6 mb-4 mb-lg-0">
+                                <div class="bg-image hover-zoom ripple rounded ripple-surface">
+                                    <img src="{{ product.image.url }}"
+                                        class="w-100" />
+                                    <a href="#!">
+                                        <div class="hover-overlay">
+                                            <div class="mask" style="background-color: rgba(253, 253, 253, 0.15);">
+                                            </div>
+                                        </div>
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="col-md-6 col-lg-6 col-xl-6">
+                                <h5>{{ product.title }}</h5>
+                                <div class="d-flex flex-row">
+                                    <div class="text-danger mb-1 me-2">
+                                        <i class="fa fa-star"></i>
+                                        <i class="fa fa-star"></i>
+                                        <i class="fa fa-star"></i>
+                                        <i class="fa fa-star"></i>
+                                    </div>
+                                    <span></span>
+                                </div>
+                                <div class="mt-1 mb-0 text-muted small">
+                                    <span>{{ product.category.title }}</span>
+                                </div>
+                                <!-- <div class="mb-2 text-muted small">
+                                    <span>Unique design</span>
+                                    <span class="text-primary"> • </span>
+                                    <span>For men</span>
+                                    <span class="text-primary"> • </span>
+                                    <span>Casual<br /></span>
+                                </div> -->
+                                <p class="text-truncate mb-4 mb-md-0">
+                                    {{ product.text }}
+                                </p>
+                                <div class="d-flex flex-row align-items-center mb-1">
+                                    <h4 class="mb-1 me-1">TL {{ product.fiyat }}</h4>
+                                    <span class="text-danger"><s>TL 700</s></span>
+                                </div>
+                                <h6 class="text-success">Free shipping</h6>
+                                <div class="d-flex flex-column mt-4">
+                                    <button class="btn btn-primary btn-sm" type="button">Details</button>
+                                    <button class="btn btn-outline-primary btn-sm mt-2" type="button">
+                                        Add to wishlist
+                                    </button>
+                                </div>
+                            </div>
+                            
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        
+    </div>
+    <section style="background-color: #ad655f;">
+        <div class="container my-5 py-5">
+            <div class="row d-flex justify-content-center">
+                <div class="col-md-12 col-lg-10">
+                <h3 class="text-white">Tüm Yorumlar</h3>
+              <div class="card text-dark">
+                
+                {% for i in commnets %}
+                    <div class="card-body p-4">
+                  <h4 class="mb-0">Yorumlar</h4>
+                  <p class="fw-light mb-4 pb-2">Yorumlarınız bizim için çok değerli</p>
+                  <div class="d-flex flex-start">
+                    <img class="rounded-circle shadow-1-strong me-3"
+                      src="https://mdbcdn.b-cdn.net/img/Photos/Avatars/img%20(23).webp" alt="avatar" width="60"
+                      height="60" />
+                    <div>
+                      <h6 class="fw-bold mb-1">{{ i.user }}</h6>
+                      <div class="d-flex align-items-center mb-3">
+                        <p class="mb-0">
+                          {{ i.date_now }}
+                          <span class="badge bg-primary">Beğeni: {{ i.like }}</span>
+                        </p>
+                        <a href="#!" class="link-muted"><i class="fas fa-pencil-alt ms-2"></i></a>
+                        <a href="#!" class="link-muted"><i class="fas fa-redo-alt ms-2"></i></a>
+                        <a href="#!" class="link-muted"><i class="fas fa-heart ms-2"></i></a>
+                      </div>
+                      <p style="width: 900px;">
+                        {{ i.text }}
+                      </p>
+                    </div>
+                  </div>
+                </div>
+                <hr class="my-0" />
+                {% endfor %}
+                 
+                
+
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+</section>
+<div class="container">
+    <form method="POST">
+        {% csrf_token %}
+        <select name="like" required class="form-select mb-2" aria-label="Default select example">
+            <option selected value="puan">Puanla</option>
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <option value="5">5</option>
+        </select>
+        
+        {% if hata %}
+            <div class="text-danger">{{ hata }}</div>
+        {% endif %}
+            
+        <div class="form-floating mb-3">
+            <input type="text" name="title" class="form-control" id="floatingInput" placeholder="Yorum Konusu">
+            <label for="floatingInput">Yorum Konusu</label>
+        </div>
+        <div class="form-floating">
+            <textarea class="form-control" name="text" placeholder="Yorum yaz" id="floatingTextarea2"
+                style="height: 100px"></textarea>
+            <label for="floatingTextarea2">Yorum</label>
+        </div>
+        <button type="submit" name="button" value="formConmmet" class="btn btn-success mt-2">
+            Paylaş
+        </button>
+    </form>
+</div>
+{% endblock body %}
+    

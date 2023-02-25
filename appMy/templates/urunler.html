@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+{% load static %}
+
+
+{% block body %}
+    <div class="container-fluid">
+        <div class="row mt-5">
+            <div class="col-8">
+                <div class="row">
+                    
+                    <h3>Tüm Ürünler</h3>
+                    {% for i in prodacts %}
+                        <div class="col-4">
+                            <div class="ozel mb-2">
+                             <a href="{% url 'detay' i.id %}"><img src="{{ i.image.url }}" alt="resim"></a>
+                             <div class="ozel-bilgi">
+                               <span>{{ i.marka }}</span>
+                               <h5>{{ i.title }}</h5>
+                               <div class="yildiz">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                               </div>
+                               <h4>{{ i.fiyat }} TL</h4>
+                             </div>
+                             <a href="#"><i class="fas fa-shopping-cart cart"></i></a>
+                            </div>
+
+                       </div>
+                    {% endfor %}
+   
+            </div>
+            </div>
+            {% include 'part/_sidenav.html' %}
+        </div>
+    </div>
+{% endblock body %}
+    
+    
